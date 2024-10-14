@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Products {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  price       Float
+  quantity    Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  category    Category @relation(fields: [categoryId], references: [id])
+  categoryId  String   @db.ObjectId
+  wareHouseLocation WareHouseLocation @relation(fields: [wareHouseLocationId], references: [id])
+  wareHouseLocationId String @db.ObjectId
+  orders      Orders[] @relation(fields: [ordersId] ,references: [id])
+  ordersId    String[] @db.ObjectId
+}
+
+model Category {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  products    Products[]
+}
+
+model WareHouseLocation {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  products    Products[]
+}
+
+model employee {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  surname     String
+  email       String   @unique
+  password    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  assignedTasks AssignedTasks[]
+}  
+
+model AssignedTasks {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  status      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  employee        employee     @relation(fields: [employeeId], references: [id])
+  employeeId      String   @db.ObjectId
+  task        Task     @relation(fields: [taskId], references: [id])
+  taskId      String   @db.ObjectId
+}
+
+model Task {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  status      String
+  dueDate     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  assignedTasks AssignedTasks[]
+}
+model Orders {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  customerName String
+  customerEmail String
+  customerPhone String
+  quantity Int
+  totalPrice Float
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  products    Products[] @relation(fields: [productsId], references: [id]) 
+  productsId  String[] @db.ObjectId
+}
+
