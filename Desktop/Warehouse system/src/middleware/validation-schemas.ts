@@ -1,51 +1,50 @@
-import Joi from "joi";
-import { title } from "process";
+import Joi, { ObjectSchema } from "joi";
 
-export const newEmployeeSchema = Joi.object({
+const newEmployeeSchema = Joi.object({
   name: Joi.string().required(),
   surname: Joi.string().required(),
   email: Joi.string().email().required(),
-  password: Joi.string().min(8).required(),
+  password: Joi.string().min(1).required(),
 });
 
-export const loginSchema = Joi.object({
+const loginSchema = Joi.object({
   email: Joi.string().email().required(),
-  password: Joi.string().min(8).required(),
+  password: Joi.string().min(1).required(),
 });
 
-export const newProductSchema = Joi.object({
+const newProductSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().required(),
   price: Joi.number().required(),
   quantity: Joi.number().required(),
-  category: Joi.string().required(),
-  warehouseLocation: Joi.string().required(),
+  categoryId: Joi.string().required(),
+  warehouseLocationId: Joi.string().required(),
 });
 
-export const newCategorySchema = Joi.object({
+const newCategorySchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().required(),
 });
 
-export const newWarehouseLocationSchema = Joi.object({
+const newWarehouseLocationSchema = Joi.object({
   name: Joi.string().required(),
   description: Joi.string().required(),
 });
 
-export const newTaskSchema = Joi.object({
+const newTaskSchema = Joi.object({
   title: Joi.string().required(),
   description: Joi.string().required(),
   dueDate: Joi.date().required(),
 });
 
-export const assignTaskToEmployeeSchema = Joi.object({
+const assignTaskToEmployeeSchema = Joi.object({
   employeeId: Joi.string().required(),
   taskId: Joi.string().required(),
   title: Joi.string().required(),
   status: Joi.string().required(),
 });
 
-export const newOrderSchema = Joi.object({
+const newOrderSchema = Joi.object({
   customerName: Joi.string().required(),
   customerEmail: Joi.string().email().required(),
   customerPhone: Joi.string().required(),
@@ -53,3 +52,14 @@ export const newOrderSchema = Joi.object({
   totalPrice: Joi.number().required(),
   productsId: Joi.array().items(Joi.string()).required(),
 });
+
+export default {
+  "/employees/create": newEmployeeSchema,
+  "/employees/login": loginSchema,
+  "/products/create": newProductSchema,
+  newCategorySchema,
+  newWarehouseLocationSchema,
+  newTaskSchema,
+  assignTaskToEmployeeSchema,
+  newOrderSchema,
+} as { [key: string]: ObjectSchema };

@@ -1,11 +1,12 @@
 import Express, { Request, Response, NextFunction } from "express";
 import { configDotenv } from "dotenv";
-
+import employeeRoutes from "./routes/employees";
 configDotenv();
 const app = Express();
 const port: string | number = process.env.PORT || 3000;
 
 app.use(Express.json());
+app.use(Express.urlencoded({ extended: true }));
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -16,6 +17,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   }
   next();
 });
+
+app.use(employeeRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
