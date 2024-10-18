@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken";
 import Prisma from "../utils/prisma";
 import bcrypt from "bcrypt";
 import { configDotenv } from "dotenv";
+import { deleteElement } from "../model/operations";
+import { AppError } from "../model/error";
 configDotenv();
 import { Request, Response, RequestHandler, NextFunction } from "express";
 
@@ -29,7 +31,7 @@ export const createUser: RequestHandler = async (
       where: { email },
     });
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+      throw new AppError("UserError", 400, "User already exists", false);
     }
     const hashedPassword = await bcrypt.hash(password, 12);
     const result = await Prisma.employee.create({
@@ -59,11 +61,11 @@ export const loginUser: RequestHandler = async (
       where: { email },
     });
     if (!user) {
-      return res.status(400).json({ message: "Invalid email" });
+      throw new AppError("LoginError", 400, "Invalid email", false);
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid password" });
+      throw new AppError("LoginError", 400, "Invalid password", false);
     }
     const token = jwt.sign({ user }, process.env.JWT_SECRET as string, {
       expiresIn: "1h",
@@ -85,7 +87,7 @@ export const getUser: RequestHandler = async (
       where: { id },
     });
     if (!user) {
-      return res.status(400).json({ message: "User not found" });
+      throw new AppError("UserError", 400, "User not found", false);
     }
     const userData = {
       id: user.id,
@@ -114,15 +116,13 @@ export const deleteUser: RequestHandler = async (
       where: { id },
     });
     if (!user) {
-      return res.status(400).json({ message: "User not found" });
+      throw new AppError("UserError", 400, "User not found", false);
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid password" });
+      throw new AppError("DeleteError", 400, "Invalid password", false);
     }
-    await Prisma.employee.delete({
-      where: { id },
-    });
+    const result = await deleteElement("employee", id);
     return res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     return res.status(500).json({ message: error });

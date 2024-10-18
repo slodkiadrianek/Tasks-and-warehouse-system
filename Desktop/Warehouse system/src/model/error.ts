@@ -8,8 +8,9 @@ export class AppError extends Error {
     message: string,
     isOperational: boolean
   ) {
-    super(message);
+    super();
     Object.setPrototypeOf(this, new.target.prototype);
+    this.message = message;
     this.name = name;
     this.statusCode = statusCode;
     this.isOperational = isOperational;
