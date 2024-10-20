@@ -58,7 +58,7 @@ export default {
   "/employees/login": loginSchema,
   "/products/create": newProductSchema,
   "/categories/create": newCategorySchema,
-  newWarehouseLocationSchema,
+  "/warehouseLocation/create": newWarehouseLocationSchema,
   newTaskSchema,
   assignTaskToEmployeeSchema,
   newOrderSchema,

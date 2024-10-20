@@ -21,10 +21,10 @@ model Products {
   quantity    Int
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  category    Category @relation(fields: [categoryId], references: [id])
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId  String   @db.ObjectId
-  wareHouseLocation WareHouseLocation @relation(fields: [wareHouseLocationId], references: [id])
-  wareHouseLocationId String @db.ObjectId
+  wareHouseLocation WarehouseLocation? @relation(fields: [warehouseLocationId], references: [id], onDelete: Cascade)
+  warehouseLocationId String @db.ObjectId
   orders      Orders[] @relation(fields: [ordersId] ,references: [id])
   ordersId    String[] @db.ObjectId
 }
@@ -38,7 +38,7 @@ model Category {
   products    Products[]
 }
 
-model WareHouseLocation {
+model WarehouseLocation {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   name        String
   description String
