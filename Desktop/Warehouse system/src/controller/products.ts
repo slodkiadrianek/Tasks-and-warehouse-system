@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import Prisma from "../utils/prisma";
+import { AppError } from "../model/error";
 
 export const createProduct: RequestHandler = async (
   req: Request,
@@ -35,6 +36,7 @@ export const getAllProducts: RequestHandler = async (
       include: {
         category: true,
         wareHouseLocation: true,
+        orders: true,
       },
     });
     return res
@@ -55,11 +57,12 @@ export const getProductById: RequestHandler = async (
       include: {
         category: true,
         wareHouseLocation: true,
+        orders: true,
       },
       where: { id },
     });
     if (!result) {
-      return res.status(404).json({ message: "Product not found" });
+      throw new AppError("Product error", 404, "Product not found", false);
     }
     return res
       .status(200)
@@ -80,7 +83,7 @@ export const updateProduct: RequestHandler = async (
       data: req.body,
     });
     if (!result) {
-      return res.status(404).json({ message: "Product not found" });
+      throw new AppError("Product error", 404, "Product not found", false);
     }
     return res
       .status(200)
@@ -100,7 +103,7 @@ export const deleteProduct: RequestHandler = async (
       where: { id },
     });
     if (!result) {
-      return res.status(404).json({ message: "Product not found" });
+      throw new AppError("Product error", 404, "Product not found", false);
     }
     return res
       .status(200)

@@ -4,6 +4,7 @@ import employeeRoutes from "./routes/employees";
 import categoriesRoutes from "./routes/categories";
 import productRoutes from "./routes/products";
 import warehouseLocationRoutes from "./routes/warehouseLocations";
+import ordersRoutes from "./routes/orders";
 import errorHandler from "./middleware/errorHandler";
 
 configDotenv();
@@ -27,6 +28,7 @@ app.use(warehouseLocationRoutes);
 app.use(employeeRoutes);
 app.use(categoriesRoutes);
 app.use(productRoutes);
+app.use(ordersRoutes);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

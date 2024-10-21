@@ -49,7 +49,6 @@ const newOrderSchema = Joi.object({
   customerEmail: Joi.string().email().required(),
   customerPhone: Joi.string().required(),
   quantity: Joi.number().required(),
-  totalPrice: Joi.number().required(),
   productsId: Joi.array().items(Joi.string()).required(),
 });
 
@@ -61,5 +60,5 @@ export default {
   "/warehouseLocation/create": newWarehouseLocationSchema,
   newTaskSchema,
   assignTaskToEmployeeSchema,
-  newOrderSchema,
+  "/orders/create": newOrderSchema,
 } as { [key: string]: ObjectSchema };
