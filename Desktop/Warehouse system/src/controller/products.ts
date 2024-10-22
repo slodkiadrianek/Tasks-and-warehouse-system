@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
-import Prisma from "../utils/prisma";
-import { AppError } from "../model/error";
+import Prisma from "../utils/prisma.js";
+import { AppError } from "../model/error.js";
 
 export const createProduct: RequestHandler = async (
   req: Request,

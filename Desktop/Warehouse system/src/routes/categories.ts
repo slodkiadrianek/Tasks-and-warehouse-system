@@ -5,9 +5,9 @@ import {
   getCategoryById,
   updateCategory,
   deleteCategory,
-} from "../controller/categories";
-import { loginVerifier } from "../middleware/loginVerifier";
-import { validateSchema } from "../middleware/schemaValidator";
+} from "../controller/categories.js";
+import { loginVerifier } from "../middleware/loginVerifier.js";
+import { validateSchema } from "../middleware/schemaValidator.js";
 
 const router = express.Router();
 

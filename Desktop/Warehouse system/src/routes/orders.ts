@@ -1,13 +1,13 @@
 import express from "express";
-import { validateSchema } from "../middleware/schemaValidator";
-import { loginVerifier } from "../middleware/loginVerifier";
+import { validateSchema } from "../middleware/schemaValidator.js";
+import { loginVerifier } from "../middleware/loginVerifier.js";
 import {
   createOrder,
   getOrders,
   getOrderById,
   updateOrder,
   deleteOrder,
-} from "../controller/orders";
+} from "../controller/orders.js";
 const router = express.Router();
 
 router.post("/orders/create", loginVerifier, validateSchema, createOrder);

@@ -1,11 +1,12 @@
 import Express, { Request, Response, NextFunction } from "express";
 import { configDotenv } from "dotenv";
-import employeeRoutes from "./routes/employees";
-import categoriesRoutes from "./routes/categories";
-import productRoutes from "./routes/products";
-import warehouseLocationRoutes from "./routes/warehouseLocations";
-import ordersRoutes from "./routes/orders";
-import errorHandler from "./middleware/errorHandler";
+import employeeRoutes from "./routes/employees.js";
+import categoriesRoutes from "./routes/categories.js";
+import productRoutes from "./routes/products.js";
+import warehouseLocationRoutes from "./routes/warehouseLocations.js";
+import ordersRoutes from "./routes/orders.js";
+import errorHandler from "./middleware/errorHandler.js";
+import tasksRoutes from "./routes/tasks.js";
 
 configDotenv();
 const app = Express();
@@ -29,6 +30,7 @@ app.use(employeeRoutes);
 app.use(categoriesRoutes);
 app.use(productRoutes);
 app.use(ordersRoutes);
+app.use(tasksRoutes);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

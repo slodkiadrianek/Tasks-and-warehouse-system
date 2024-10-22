@@ -1,6 +1,6 @@
 import { RequestHandler, NextFunction, Response, Request } from "express";
 
-import validationSchemas from "./validation-schemas";
+import validationSchemas from "./validation-schemas.js";
 export const validateSchema: RequestHandler = (
   req: Request,
   res: Response,

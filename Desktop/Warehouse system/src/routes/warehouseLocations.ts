@@ -4,9 +4,9 @@ import {
   getAllWarehouseLocations,
   updateWarehouseLocation,
   deleteWarehouseLocation,
-} from "../controller/warehouseLocation";
-import { loginVerifier } from "../middleware/loginVerifier";
-import { validateSchema } from "../middleware/schemaValidator";
+} from "../controller/warehouseLocation.js";
+import { loginVerifier } from "../middleware/loginVerifier.js";
+import { validateSchema } from "../middleware/schemaValidator.js";
 const router = express.Router();
 
 router.post(

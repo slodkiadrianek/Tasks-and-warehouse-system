@@ -5,9 +5,9 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
-} from "../controller/products";
-import { loginVerifier } from "../middleware/loginVerifier";
-import { validateSchema } from "../middleware/schemaValidator";
+} from "../controller/products.js";
+import { loginVerifier } from "../middleware/loginVerifier.js";
+import { validateSchema } from "../middleware/schemaValidator.js";
 const router = express.Router();
 
 router.post("/products/create", loginVerifier, validateSchema, createProduct);

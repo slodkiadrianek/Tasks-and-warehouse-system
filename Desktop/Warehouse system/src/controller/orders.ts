@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
-import prisma from "../utils/prisma";
-import { addElement, deleteElement } from "../model/operations";
-import { AppError } from "../model/error";
+import prisma from "../utils/prisma.js";
+import { addElement, deleteElement } from "../model/operations.js";
+import { AppError } from "../model/error.js";
 import { ObjectId } from "mongodb";
 
 export const createOrder: RequestHandler = async (

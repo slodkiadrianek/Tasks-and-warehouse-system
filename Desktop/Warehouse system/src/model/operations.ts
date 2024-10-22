@@ -1,4 +1,4 @@
-import prisma from "../utils/prisma";
+import prisma from "../utils/prisma.js";
 import { PrismaClient } from "@prisma/client";
 
 export async function addElement(table: string, data: object) {

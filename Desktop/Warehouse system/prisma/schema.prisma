@@ -55,22 +55,12 @@ model employee {
   password    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  assignedTasks AssignedTasks[]
-}  
-
-model AssignedTasks {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  status      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  employee        employee     @relation(fields: [employeeId], references: [id])
-  employeeId      String   @db.ObjectId
-  task        Task     @relation(fields: [taskId], references: [id])
-  taskId      String   @db.ObjectId
+  tasks       Tasks[] 
 }
 
-model Task {
+
+
+model Tasks {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String
@@ -78,7 +68,8 @@ model Task {
   dueDate     DateTime
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  assignedTasks AssignedTasks[]
+  employee    employee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  employeeId  String   @db.ObjectId
 }
 model Orders {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId

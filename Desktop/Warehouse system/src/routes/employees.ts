@@ -4,9 +4,9 @@ import {
   loginUser,
   getUser,
   deleteUser,
-} from "../controller/employees";
-import { loginVerifier } from "../middleware/loginVerifier";
-import { validateSchema } from "../middleware/schemaValidator";
+} from "../controller/employees.js";
+import { loginVerifier } from "../middleware/loginVerifier.js";
+import { validateSchema } from "../middleware/schemaValidator.js";
 
 const router = express.Router();
 

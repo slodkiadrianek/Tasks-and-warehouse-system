@@ -35,6 +35,7 @@ const newTaskSchema = Joi.object({
   title: Joi.string().required(),
   description: Joi.string().required(),
   dueDate: Joi.date().required(),
+  employeeId: Joi.string().required(),
 });
 
 const assignTaskToEmployeeSchema = Joi.object({
@@ -58,7 +59,7 @@ export default {
   "/products/create": newProductSchema,
   "/categories/create": newCategorySchema,
   "/warehouseLocation/create": newWarehouseLocationSchema,
-  newTaskSchema,
+  "/tasks/create": newTaskSchema,
   assignTaskToEmployeeSchema,
   "/orders/create": newOrderSchema,
 } as { [key: string]: ObjectSchema };

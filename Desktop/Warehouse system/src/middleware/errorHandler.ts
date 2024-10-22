@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
-import { AppError } from "../model/error";
+import { AppError } from "../model/error.js";
 const errorHandler: ErrorRequestHandler = (
   err: Error,
   req: Request,

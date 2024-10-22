@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
-import Prisma from "../utils/prisma";
+import Prisma from "../utils/prisma.js";
 import bcrypt from "bcrypt";
 import { configDotenv } from "dotenv";
-import { deleteElement } from "../model/operations";
-import { AppError } from "../model/error";
+import { deleteElement } from "../model/operations.js";
+import { AppError } from "../model/error.js";
 configDotenv();
 import { Request, Response, RequestHandler, NextFunction } from "express";
 
@@ -85,20 +85,14 @@ export const getUser: RequestHandler = async (
     const { id } = req.params;
     const user: User | null = await Prisma.employee.findUnique({
       where: { id },
+      include: {
+        tasks: true,
+      },
     });
     if (!user) {
       throw new AppError("UserError", 400, "User not found", false);
     }
-    const userData = {
-      id: user.id,
-      name: user.name,
-      surname: user.surname,
-      email: user.email,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-      assignedTasks: user?.assignedTasks,
-    };
-    return res.status(200).json({ message: "User found", userData });
+    return res.status(200).json({ message: "User found", user });
   } catch (error) {
     return res.status(500).json({ message: error });
   }
