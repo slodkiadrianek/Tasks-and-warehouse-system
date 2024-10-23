@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import prisma from "../utils/prisma.js";
-import { addElement, deleteElement } from "../model/operations.js";
-import { AppError } from "../model/error.js";
-import { ObjectId } from "mongodb";
-import { stat } from "fs";
+import {
+  addElement,
+  deleteElement,
+  updateElement,
+} from "../model/operations.js";
 
 export const createTask: RequestHandler = async (
   req: Request,
@@ -45,10 +46,7 @@ export const updateTask: RequestHandler = async (
 ): Promise<any> => {
   try {
     const id = req.params.id;
-    const result = await prisma.tasks.update({
-      where: { id: id },
-      data: req.body,
-    });
+    const result = await updateElement("tasks", id, req.body);
     return res
       .status(200)
       .json({ message: "Task updated successfully", result });

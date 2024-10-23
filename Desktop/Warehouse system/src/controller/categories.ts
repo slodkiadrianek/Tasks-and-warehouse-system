@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import Prisma from "../utils/prisma.js";
-import { deleteElement } from "../model/operations.js";
 import { AppError } from "../model/error.js";
+import {
+  addElement,
+  updateElement,
+  deleteElement,
+} from "../model/operations.js";
 
 export const createCategory: RequestHandler = async (
   req: Request,
@@ -9,11 +13,7 @@ export const createCategory: RequestHandler = async (
   next: NextFunction
 ): Promise<any> => {
   try {
-    const result = await Prisma.category.create({
-      data: {
-        ...req.body,
-      },
-    });
+    const result = await addElement("category", req.body);
     return res
       .status(201)
       .json({ message: "Category created successfully", result });
@@ -63,12 +63,7 @@ export const updateCategory: RequestHandler = async (
 ): Promise<any> => {
   try {
     const { id } = req.params;
-    const result = await Prisma.category.update({
-      where: { id: id },
-      data: {
-        ...req.body,
-      },
-    });
+    const result = await updateElement("category", id, req.body);
     if (!result) {
       throw new AppError("CategoryError", 404, "Category not found", false);
     }

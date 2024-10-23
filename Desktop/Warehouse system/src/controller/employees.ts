@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import Prisma from "../utils/prisma.js";
 import bcrypt from "bcrypt";
 import { configDotenv } from "dotenv";
-import { deleteElement } from "../model/operations.js";
+import { deleteElement, addElement } from "../model/operations.js";
 import { AppError } from "../model/error.js";
 configDotenv();
 import { Request, Response, RequestHandler, NextFunction } from "express";
@@ -25,8 +25,7 @@ export const createUser: RequestHandler = async (
   next: NextFunction
 ): Promise<any> => {
   try {
-    const { name, surname, email, password } = req.body;
-    console.log(req.originalUrl);
+    const { email, password } = req.body;
     const existingUser = await Prisma.employee.findUnique({
       where: { email },
     });
@@ -34,13 +33,9 @@ export const createUser: RequestHandler = async (
       throw new AppError("UserError", 400, "User already exists", false);
     }
     const hashedPassword = await bcrypt.hash(password, 12);
-    const result = await Prisma.employee.create({
-      data: {
-        name,
-        surname,
-        email,
-        password: hashedPassword,
-      },
+    const result = await addElement("employee", {
+      ...req.body,
+      password: hashedPassword,
     });
     return res
       .status(200)

@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import prisma from "../utils/prisma.js";
-import { addElement, deleteElement } from "../model/operations.js";
+import {
+  addElement,
+  deleteElement,
+  updateElement,
+} from "../model/operations.js";
 import { AppError } from "../model/error.js";
 import { ObjectId } from "mongodb";
 
@@ -77,10 +81,7 @@ export const updateOrder: RequestHandler = async (
   next: NextFunction
 ): Promise<any> => {
   try {
-    const order = await prisma.orders.update({
-      where: { id: req.params.id },
-      data: req.body,
-    });
+    const order = await updateElement("orders", req.params.id, req.body);
     if (!order) {
       throw new AppError("Order error", 404, "Order not found", false);
     }

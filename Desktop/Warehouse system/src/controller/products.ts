@@ -1,6 +1,11 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import Prisma from "../utils/prisma.js";
 import { AppError } from "../model/error.js";
+import {
+  addElement,
+  deleteElement,
+  updateElement,
+} from "../model/operations.js";
 
 export const createProduct: RequestHandler = async (
   req: Request,
@@ -11,12 +16,10 @@ export const createProduct: RequestHandler = async (
     const { price } = req.body;
     const convertedPrice = parseFloat(price);
 
-    const result = await Prisma.products.create({
-      data: {
-        ...req.body,
-        quantity: +req.body.quantity,
-        price: convertedPrice,
-      },
+    const result = await addElement("products", {
+      ...req.body,
+      quantity: +req.body.quantity,
+      price: convertedPrice,
     });
     return res
       .status(201)
@@ -78,10 +81,7 @@ export const updateProduct: RequestHandler = async (
 ): Promise<any> => {
   try {
     const { id } = req.params;
-    const result = await Prisma.products.update({
-      where: { id },
-      data: req.body,
-    });
+    const result = await updateElement("products", id, req.body);
     if (!result) {
       throw new AppError("Product error", 404, "Product not found", false);
     }
@@ -99,9 +99,7 @@ export const deleteProduct: RequestHandler = async (
 ): Promise<any> => {
   try {
     const { id } = req.params;
-    const result = await Prisma.products.delete({
-      where: { id },
-    });
+    const result = await deleteElement("products", id);
     if (!result) {
       throw new AppError("Product error", 404, "Product not found", false);
     }
