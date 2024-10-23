@@ -86,21 +86,6 @@ export const getOrderById: RequestHandler = async (
     next(error);
   }
 };
-export const updateOrder: RequestHandler = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<any> => {
-  try {
-    const order = await updateElement("orders", req.params.id, req.body);
-    if (!order) {
-      throw new AppError("Order error", 404, "Order not found", false);
-    }
-    res.status(200).json({ message: `Order updated successfully`, order });
-  } catch (error) {
-    next(error);
-  }
-};
 
 export const deleteOrder: RequestHandler = async (
   req: Request,
