@@ -49,7 +49,7 @@ const newOrderSchema = Joi.object({
   customerName: Joi.string().required(),
   customerEmail: Joi.string().email().required(),
   customerPhone: Joi.string().required(),
-  quantity: Joi.number().required(),
+  quantity: Joi.required(),
   productsId: Joi.array().items(Joi.string()).required(),
 });
 

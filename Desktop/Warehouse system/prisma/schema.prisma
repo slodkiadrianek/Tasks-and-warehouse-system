@@ -76,7 +76,7 @@ model Orders {
   customerName String
   customerEmail String
   customerPhone String
-  quantity Int
+  quantity Int[]
   totalPrice Float
   
   createdAt   DateTime @default(now())

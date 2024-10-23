@@ -41,7 +41,7 @@ export const createUser: RequestHandler = async (
       .status(200)
       .json({ message: "User created successfully", userData: result });
   } catch (error) {
-    return res.status(500).json({ message: error });
+    next(error);
   }
 };
 
@@ -67,7 +67,7 @@ export const loginUser: RequestHandler = async (
     });
     return res.status(200).json({ message: "Login successful", token });
   } catch (error) {
-    return res.status(500).json({ message: error });
+    next(error);
   }
 };
 
@@ -89,7 +89,7 @@ export const getUser: RequestHandler = async (
     }
     return res.status(200).json({ message: "User found", user });
   } catch (error) {
-    return res.status(500).json({ message: error });
+    next(error);
   }
 };
 export const deleteUser: RequestHandler = async (
@@ -114,6 +114,6 @@ export const deleteUser: RequestHandler = async (
     const result = await deleteElement("employee", id);
     return res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
-    return res.status(500).json({ message: error });
+    next(error);
   }
 };

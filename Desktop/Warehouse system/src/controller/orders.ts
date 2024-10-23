@@ -14,27 +14,38 @@ export const createOrder: RequestHandler = async (
   next: NextFunction
 ): Promise<any> => {
   try {
-    const order = await prisma.products.findUnique({
-      where: { id: req.body.productsId[0] },
-    });
-    if (!order) {
-      throw new AppError("Product error", 404, "Product not found", false);
-    }
+    let totalPrice = 0;
+    for (let i = 0; i < req.body.productsId.length; i++) {
+      const order = await prisma.products.findUnique({
+        where: { id: req.body.productsId[i] },
+      });
+      if (!order) {
+        throw new AppError("Product error", 404, "Product not found", false);
+      }
 
-    const totalPrice = +order.price * req.body.quantity;
+      totalPrice += +order.price * +req.body.quantity[i];
+      req.body.quantity[i] = +req.body.quantity[i];
+    }
     const result = await addElement("orders", {
       ...req.body,
       totalPrice,
-      quantity: +req.body.quantity,
+      quantity: req.body.quantity,
     });
-
-    const products = await prisma.products.update({
-      where: { id: req.body.productsId[0] },
-      data: {
-        quantity: order.quantity - +req.body.quantity,
-        ordersId: [new ObjectId(result.id).toString()],
-      },
-    });
+    for (let i = 0; i < req.body.productsId.length; i++) {
+      const order = await prisma.products.findUnique({
+        where: { id: req.body.productsId[i] },
+      });
+      if (!order) {
+        throw new AppError("Product error", 404, "Product not found", false);
+      }
+      await prisma.products.update({
+        where: { id: req.body.productsId[i] },
+        data: {
+          quantity: order.quantity - +req.body.quantity[i],
+          ordersId: [new ObjectId(result.id).toString()],
+        },
+      });
+    }
 
     res.status(201).json({ message: `Order created successfully`, result });
   } catch (error) {
