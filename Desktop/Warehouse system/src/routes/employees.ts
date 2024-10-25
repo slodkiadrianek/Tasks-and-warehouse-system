@@ -16,6 +16,6 @@ router.post("/employees/login", validateSchema, loginUser);
 
 router.get("/employees/:id", getUser);
 
-router.post("/employees/:id/delete", loginVerifier, deleteUser);
+router.delete("/employees/:id/delete", loginVerifier, deleteUser);
 
 export default router;

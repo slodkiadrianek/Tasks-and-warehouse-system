@@ -9,7 +9,7 @@ import errorHandler from "./middleware/errorHandler.js";
 import tasksRoutes from "./routes/tasks.js";
 
 configDotenv();
-const app = Express();
+export const app = Express();
 const port: string | number = process.env.PORT || 3000;
 
 app.use(Express.json());
@@ -31,6 +31,6 @@ app.use(categoriesRoutes);
 app.use(productRoutes);
 app.use(ordersRoutes);
 app.use(tasksRoutes);
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`Server is running on port ${port}`);
+// });

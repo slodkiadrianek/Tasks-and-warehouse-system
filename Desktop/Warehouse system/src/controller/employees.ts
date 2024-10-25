@@ -22,7 +22,7 @@ interface User {
 export const createUser: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { email, password } = req.body;
@@ -48,7 +48,7 @@ export const createUser: RequestHandler = async (
 export const loginUser: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { email, password } = req.body;
@@ -74,7 +74,7 @@ export const loginUser: RequestHandler = async (
 export const getUser: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { id } = req.params;
@@ -95,7 +95,7 @@ export const getUser: RequestHandler = async (
 export const deleteUser: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { password } = req.body;
@@ -112,7 +112,7 @@ export const deleteUser: RequestHandler = async (
       throw new AppError("DeleteError", 400, "Invalid password", false);
     }
     const result = await deleteElement("employee", id);
-    return res.status(200).json({ message: "User deleted successfully" });
+    return res.status(200).json({ message: "Employee deleted successfully" });
   } catch (error) {
     next(error);
   }

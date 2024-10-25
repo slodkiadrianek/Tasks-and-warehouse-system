@@ -15,7 +15,7 @@ router.post(
   "/categories/create",
   loginVerifier,
   validateSchema,
-  createCategory
+  createCategory,
 );
 router.put("/categories/:id", loginVerifier, validateSchema, updateCategory);
 router.delete("/categories/:id", loginVerifier, deleteCategory);
