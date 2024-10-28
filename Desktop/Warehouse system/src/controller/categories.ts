@@ -10,7 +10,7 @@ import {
 export const createCategory: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const result = await addElement("category", req.body);
@@ -25,7 +25,7 @@ export const createCategory: RequestHandler = async (
 export const getAllCategories: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const result = await Prisma.category.findMany();
@@ -39,7 +39,7 @@ export const getAllCategories: RequestHandler = async (
 export const getCategoryById: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { id } = req.params;
@@ -59,7 +59,7 @@ export const getCategoryById: RequestHandler = async (
 export const updateCategory: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { id } = req.params;
@@ -77,7 +77,7 @@ export const updateCategory: RequestHandler = async (
 export const deleteCategory: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { id } = req.params;
@@ -89,7 +89,7 @@ export const deleteCategory: RequestHandler = async (
         "CategoryError",
         400,
         "Category cannot be deleted as it has products",
-        false
+        false,
       );
     }
     const result = deleteElement("category", id);

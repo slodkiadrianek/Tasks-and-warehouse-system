@@ -17,8 +17,13 @@ router.post(
   validateSchema,
   createCategory,
 );
-router.put("/categories/:id", loginVerifier, validateSchema, updateCategory);
-router.delete("/categories/:id", loginVerifier, deleteCategory);
+router.put(
+  "/categories/:id/update",
+  loginVerifier,
+  validateSchema,
+  updateCategory,
+);
+router.delete("/categories/:id/delete", loginVerifier, deleteCategory);
 router.get("/categories", getAllCategories);
 router.get("/categories/:id", getCategoryById);
 

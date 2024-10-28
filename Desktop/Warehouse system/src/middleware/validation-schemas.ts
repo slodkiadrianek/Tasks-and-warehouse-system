@@ -54,12 +54,11 @@ const newOrderSchema = Joi.object({
 });
 
 export default {
-  "/employees/create": newEmployeeSchema,
-  "/employees/login": loginSchema,
-  "/products/create": newProductSchema,
-  "/categories/create": newCategorySchema,
-  "/warehouseLocation/create": newWarehouseLocationSchema,
-  "/tasks/create": newTaskSchema,
-  assignTaskToEmployeeSchema,
-  "/orders/create": newOrderSchema,
+  employees: newEmployeeSchema,
+  login: loginSchema,
+  products: newProductSchema,
+  categories: newCategorySchema,
+  warehouseLocation: newWarehouseLocationSchema,
+  tasks: newTaskSchema,
+  orders: newOrderSchema,
 } as { [key: string]: ObjectSchema };

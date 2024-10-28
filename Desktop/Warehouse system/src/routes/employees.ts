@@ -12,7 +12,7 @@ const router = express.Router();
 
 router.post("/employees/create", validateSchema, createUser);
 
-router.post("/employees/login", validateSchema, loginUser);
+router.post("/login", validateSchema, loginUser);
 
 router.get("/employees/:id", getUser);
 

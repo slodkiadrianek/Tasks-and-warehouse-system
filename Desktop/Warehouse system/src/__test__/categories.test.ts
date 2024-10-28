@@ -11,8 +11,9 @@ describe("Categories", () => {
     const user: any = await request(app)
       .post("/employees/create")
       .send(userData);
+    console.log(user);
     userId = user._body.userData.id;
-    const loginRes: any = await request(app).post("/employees/login").send({
+    const loginRes: any = await request(app).post("/login").send({
       email: userData.email,
       password: userData.password,
     });
@@ -45,6 +46,31 @@ describe("Categories", () => {
       .set("Authorization", `Bearer ${userToken}`);
     expect(res.statusCode).toBe(200);
     expect(res._body.result[1].name).toBe(categoryData.name);
+  });
+  it("get category by id", async () => {
+    const res: any = await request(app)
+      .get(`/categories/${categoryId}`)
+      .set("Authorization", `Bearer ${userToken}`);
+    expect(res.statusCode).toBe(200);
+    expect(res._body.result.name).toBe(categoryData.name);
+  });
+  it("update category", async () => {
+    console.log(categoryId, categoryData, userToken);
+    const res: any = await request(app)
+      .put(`/categories/${categoryId}/update`)
+      .send(categoryData)
+      .set("Authorization", `Bearer ${userToken}`);
+    console.log(res);
+    expect(res.statusCode).toBe(200);
+
+    expect(res._body.result.name).toBe("Category 1");
+  });
+  it("delete category", async () => {
+    const res: any = await request(app)
+      .delete(`/categories/${categoryId}/delete`)
+      .set("Authorization", `Bearer ${userToken}`);
+    expect(res.statusCode).toBe(200);
+    expect(res._body.message).toBe("Category deleted successfully");
   });
 });
 console.log("categories test");

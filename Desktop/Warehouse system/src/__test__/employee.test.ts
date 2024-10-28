@@ -30,7 +30,7 @@ describe("Employee", () => {
     expect(res._body.user.id).toBe(userId);
   });
   it("Login of employee", async () => {
-    const res: any = await request(app).post("/employees/login").send({
+    const res: any = await request(app).post("/login").send({
       email: userData.email,
       password: userData.password,
     });
