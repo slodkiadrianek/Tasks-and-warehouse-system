@@ -17,9 +17,31 @@ export const warehouseLocationData = {
   description: "This is the first location",
 };
 
+export const productData = {
+  name: "Product 1",
+  description: "This is the first product",
+  price: 100,
+  categoryId: "6712907bde06020eeadad87b",
+  warehouseLocationId: "6720f6703f4c21f896d34a9a",
+  quantity: 100,
+};
+export const taskData = {
+  title: "Task 1",
+  description: "This is the first task",
+  dueDate: "2025-10-29T15:04:33.893+00:00",
+  employeeId: "6720f981eb3b4e5c65d88bdf",
+};
+
+export const orderData = {
+  customerName: "John Doe",
+  customerEmail: "johndoe@6dxam22ple.com",
+  customerPhone: "1234567890",
+  quantity: [10],
+  productsId: ["67225cc4554299e9e27ca39c"],
+};
+
 export async function generateUser() {
   const user: any = await request(app).post("/employees/create").send(userData);
-  console.log(user);
   const userId: string = user._body.userData.id;
   const loginRes: any = await request(app).post("/login").send({
     email: userData.email,

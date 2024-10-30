@@ -9,7 +9,7 @@ import {
 export const createTask: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const result = await addElement("tasks", {
@@ -27,7 +27,7 @@ export const createTask: RequestHandler = async (
 export const deleteTask: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const id = req.params.id;
@@ -42,7 +42,7 @@ export const deleteTask: RequestHandler = async (
 export const updateTask: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const id = req.params.id;
@@ -58,15 +58,12 @@ export const updateTask: RequestHandler = async (
 export const getTask: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const id = req.params.id;
     const result = await prisma.tasks.findUnique({
       where: { id: id },
-      include: {
-        employee: true,
-      },
     });
     return res
       .status(200)
@@ -78,14 +75,10 @@ export const getTask: RequestHandler = async (
 export const getAllTasks: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
-    const result = await prisma.tasks.findMany({
-      include: {
-        employee: true,
-      },
-    });
+    const result = await prisma.tasks.findMany({});
     return res
       .status(200)
       .json({ message: "All tasks retrieved successfully", result });

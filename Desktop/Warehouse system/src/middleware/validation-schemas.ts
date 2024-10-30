@@ -4,7 +4,7 @@ const newEmployeeSchema = Joi.object({
   name: Joi.string().required(),
   surname: Joi.string().required(),
   email: Joi.string().email().required(),
-  password: Joi.string().min(1).required(),
+  password: Joi.string().min(6).required(),
 });
 
 const loginSchema = Joi.object({
@@ -38,18 +38,11 @@ const newTaskSchema = Joi.object({
   employeeId: Joi.string().required(),
 });
 
-const assignTaskToEmployeeSchema = Joi.object({
-  employeeId: Joi.string().required(),
-  taskId: Joi.string().required(),
-  title: Joi.string().required(),
-  status: Joi.string().required(),
-});
-
 const newOrderSchema = Joi.object({
   customerName: Joi.string().required(),
   customerEmail: Joi.string().email().required(),
   customerPhone: Joi.string().required(),
-  quantity: Joi.required(),
+  quantity: Joi.array().items(Joi.number()).required(),
   productsId: Joi.array().items(Joi.string()).required(),
 });
 

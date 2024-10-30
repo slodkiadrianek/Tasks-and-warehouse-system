@@ -2,7 +2,7 @@ import { it, describe, expect, afterAll, beforeAll } from "vitest";
 import { app } from "../app.js";
 import request from "supertest";
 import prisma from "../utils/prisma.js";
-import { categoryData, userData } from "../utils/testData.js";
+import { categoryData, userData, deleteUser } from "../utils/testData.js";
 let userId: string = "";
 let categoryId: string = "";
 let userToken: string = "";
@@ -20,11 +20,7 @@ describe("Categories", () => {
     userToken = loginRes._body.token;
   });
   afterAll(async () => {
-    await prisma.employee.deleteMany({
-      where: {
-        id: userId,
-      },
-    });
+    await deleteUser(userId);
     await prisma.category.deleteMany({
       where: {
         id: categoryId,
@@ -34,8 +30,8 @@ describe("Categories", () => {
   it("create category", async () => {
     const res: any = await request(app)
       .post("/categories/create")
-      .send(categoryData)
-      .set("Authorization", `Bearer ${userToken}`);
+      .set("Authorization", `Bearer ${userToken}`)
+      .send(categoryData);
     expect(res.statusCode).toBe(201);
     expect(res._body.result.name).toBe(categoryData.name);
     categoryId = res._body.result.id;
@@ -60,7 +56,6 @@ describe("Categories", () => {
       .put(`/categories/${categoryId}/update`)
       .send(categoryData)
       .set("Authorization", `Bearer ${userToken}`);
-    console.log(res);
     expect(res.statusCode).toBe(200);
 
     expect(res._body.result.name).toBe("Category 1");

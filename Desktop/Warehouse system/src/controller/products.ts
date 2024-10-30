@@ -10,15 +10,14 @@ import {
 export const createProduct: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { price } = req.body;
     const convertedPrice = parseFloat(price);
-
     const result = await addElement("products", {
       ...req.body,
-      quantity: +req.body.quantity,
+      quantity: req.body.quantity,
       price: convertedPrice,
     });
     return res
@@ -32,7 +31,7 @@ export const createProduct: RequestHandler = async (
 export const getAllProducts: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const result = await Prisma.products.findMany({
@@ -52,7 +51,7 @@ export const getAllProducts: RequestHandler = async (
 export const getProductById: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { id } = req.params;
@@ -77,7 +76,7 @@ export const getProductById: RequestHandler = async (
 export const updateProduct: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { id } = req.params;
@@ -95,7 +94,7 @@ export const updateProduct: RequestHandler = async (
 export const deleteProduct: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { id } = req.params;

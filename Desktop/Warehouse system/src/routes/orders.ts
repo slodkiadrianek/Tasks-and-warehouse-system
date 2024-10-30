@@ -9,9 +9,14 @@ import {
 } from "../controller/orders.js";
 const router = express.Router();
 
-router.post("/orders/create", loginVerifier, validateSchema, createOrder);
+router.post(
+  "/orders/create",
+  loginVerifier,
+  validateSchema,
+  createOrder as any,
+);
 
-router.get("/orders", loginVerifier, getOrders);
-router.get("/orders/:id", loginVerifier, getOrderById);
-router.delete("/orders/:id", loginVerifier, deleteOrder);
+router.get("/orders", loginVerifier, getOrders as any);
+router.get("/orders/:id", loginVerifier, getOrderById as any);
+router.delete("/orders/:id/delete", loginVerifier, deleteOrder as any);
 export default router;

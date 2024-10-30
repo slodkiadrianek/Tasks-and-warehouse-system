@@ -7,11 +7,11 @@ import {
   deleteElement,
 } from "../model/operations.js";
 
-export const createCategory: RequestHandler = async (
+export const createCategory = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const result = await addElement("category", req.body);
     return res
@@ -22,11 +22,11 @@ export const createCategory: RequestHandler = async (
   }
 };
 
-export const getAllCategories: RequestHandler = async (
+export const getAllCategories = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const result = await Prisma.category.findMany();
     return res
@@ -36,11 +36,11 @@ export const getAllCategories: RequestHandler = async (
     next(error);
   }
 };
-export const getCategoryById: RequestHandler = async (
+export const getCategoryById = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { id } = req.params;
     const result = await Prisma.category.findUnique({
@@ -56,11 +56,11 @@ export const getCategoryById: RequestHandler = async (
     next(error);
   }
 };
-export const updateCategory: RequestHandler = async (
+export const updateCategory = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { id } = req.params;
     const result = await updateElement("category", id, req.body);
@@ -74,11 +74,11 @@ export const updateCategory: RequestHandler = async (
     next(error);
   }
 };
-export const deleteCategory: RequestHandler = async (
+export const deleteCategory = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { id } = req.params;
     const categoryProducts = await Prisma.products.findMany({

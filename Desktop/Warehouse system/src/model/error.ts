@@ -6,7 +6,7 @@ export class AppError extends Error {
     name: string,
     statusCode: number,
     message: string,
-    isOperational: boolean
+    isOperational: boolean,
   ) {
     super();
     Object.setPrototypeOf(this, new.target.prototype);

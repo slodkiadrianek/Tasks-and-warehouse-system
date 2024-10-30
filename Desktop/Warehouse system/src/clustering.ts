@@ -23,7 +23,7 @@ if (cluster.isPrimary) {
   // Listen for worker exit events and restart the worker
   cluster.on("exit", (worker, code, signal) => {
     console.log(
-      `Worker ${worker.process.pid} died with code ${code} and signal ${signal}`
+      `Worker ${worker.process.pid} died with code ${code} and signal ${signal}`,
     );
     cluster.fork(); // Restart the worker when it dies
   });

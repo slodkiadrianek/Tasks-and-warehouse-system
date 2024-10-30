@@ -17,7 +17,7 @@ router.get("/tasks/:id", loginVerifier, getTask);
 
 router.get("/tasks", loginVerifier, getAllTasks);
 
-router.put("/tasks/:id", loginVerifier, validateSchema, updateTask);
-router.delete("/tasks/:id", loginVerifier, deleteTask);
+router.put("/tasks/:id/update", loginVerifier, validateSchema, updateTask);
+router.delete("/tasks/:id/delete", loginVerifier, deleteTask);
 
 export default router;

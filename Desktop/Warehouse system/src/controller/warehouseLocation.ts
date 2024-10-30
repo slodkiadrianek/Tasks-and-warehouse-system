@@ -10,7 +10,7 @@ import {
 export const createWarehouseLocation: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const result = await addElement("warehouseLocation", req.body);
@@ -25,7 +25,7 @@ export const createWarehouseLocation: RequestHandler = async (
 export const getAllWarehouseLocations: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const result = await Prisma.warehouseLocation.findMany({
@@ -41,7 +41,7 @@ export const getAllWarehouseLocations: RequestHandler = async (
 export const getWarehouseLocationById: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { id } = req.params;
@@ -65,7 +65,7 @@ export const getWarehouseLocationById: RequestHandler = async (
 export const updateWarehouseLocation: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { id } = req.params;
@@ -84,7 +84,7 @@ export const updateWarehouseLocation: RequestHandler = async (
 export const deleteWarehouseLocation: RequestHandler = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<any> => {
   try {
     const { id } = req.params;
@@ -97,7 +97,7 @@ export const deleteWarehouseLocation: RequestHandler = async (
         "warehouseLocation",
         400,
         "Cannot delete warehouse location with products",
-        false
+        false,
       );
     }
     if (!result) {
@@ -105,7 +105,7 @@ export const deleteWarehouseLocation: RequestHandler = async (
         "warehouseLocation",
         404,
         "Warehouse location not found",
-        false
+        false,
       );
     }
     return res

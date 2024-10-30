@@ -10,10 +10,9 @@ export async function addElement(table: string, data: object) {
   return result;
 }
 
-//funkcja do usuwania elementu z bazy danych
 export async function deleteElement(
   table: string,
-  id: string
+  id: string,
 ): Promise<object> {
   const result = await (prisma[table as keyof PrismaClient] as any).delete({
     where: {
@@ -26,7 +25,7 @@ export async function deleteElement(
 export async function updateElement(
   table: string,
   id: string,
-  data: object
+  data: object,
 ): Promise<object> {
   const result = await (prisma[table as keyof PrismaClient] as any).update({
     where: {

@@ -4,6 +4,7 @@ import {
   getAllWarehouseLocations,
   updateWarehouseLocation,
   deleteWarehouseLocation,
+  getWarehouseLocationById,
 } from "../controller/warehouseLocation.js";
 import { loginVerifier } from "../middleware/loginVerifier.js";
 import { validateSchema } from "../middleware/schemaValidator.js";
@@ -13,25 +14,21 @@ router.post(
   "/warehouseLocation/create",
   loginVerifier,
   validateSchema,
-  createWarehouseLocation
+  createWarehouseLocation,
 );
 
 router.get("/warehouseLocation/get", loginVerifier, getAllWarehouseLocations);
-router.get(
-  "/warehouseLocation/get/:id",
-  loginVerifier,
-  getAllWarehouseLocations
-);
+router.get("/warehouseLocation/:id", loginVerifier, getWarehouseLocationById);
 router.put(
-  "warehouseLocation/update/:id",
+  "/warehouseLocation/:id/update",
   loginVerifier,
   validateSchema,
-  updateWarehouseLocation
+  updateWarehouseLocation,
 );
 router.delete(
-  "warehouseLocation/delete/:id",
+  "/warehouseLocation/:id/delete",
   loginVerifier,
-  deleteWarehouseLocation
+  deleteWarehouseLocation,
 );
 
 export default router;

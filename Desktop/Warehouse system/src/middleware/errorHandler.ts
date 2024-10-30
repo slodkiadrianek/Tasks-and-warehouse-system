@@ -4,7 +4,7 @@ const errorHandler: ErrorRequestHandler = (
   err: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): any => {
   if (err instanceof AppError) {
     return res

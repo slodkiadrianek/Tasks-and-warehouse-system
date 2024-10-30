@@ -8,11 +8,11 @@ import {
 import { AppError } from "../model/error.js";
 import { ObjectId } from "mongodb";
 
-export const createOrder: RequestHandler = async (
+export async function createOrder(
   req: Request,
   res: Response,
-  next: NextFunction
-): Promise<any> => {
+  next: NextFunction,
+): Promise<Response | undefined> {
   try {
     let totalPrice = 0;
     for (let i = 0; i < req.body.productsId.length; i++) {
@@ -47,33 +47,35 @@ export const createOrder: RequestHandler = async (
       });
     }
 
-    res.status(201).json({ message: `Order created successfully`, result });
+    return res
+      .status(201)
+      .json({ message: `Order created successfully`, result });
   } catch (error) {
     next(error);
   }
-};
-export const getOrders: RequestHandler = async (
+}
+export async function getOrders(
   req: Request,
   res: Response,
-  next: NextFunction
-): Promise<any> => {
+  next: NextFunction,
+): Promise<Response | undefined> {
   try {
     const orders = await prisma.orders.findMany({
       include: {
         products: true,
       },
     });
-    res.status(200).json(orders);
+    return res.status(200).json(orders);
   } catch (error) {
     next(error);
   }
-};
+}
 
-export const getOrderById: RequestHandler = async (
+export async function getOrderById(
   req: Request,
   res: Response,
-  next: NextFunction
-): Promise<any> => {
+  next: NextFunction,
+): Promise<Response | undefined> {
   try {
     const order = await prisma.orders.findUnique({
       where: { id: req.params.id },
@@ -81,24 +83,26 @@ export const getOrderById: RequestHandler = async (
     if (!order) {
       throw new AppError("Order error", 404, "Order not found", false);
     }
-    res.status(200).json(order);
+    return res.status(200).json(order);
   } catch (error) {
     next(error);
   }
-};
+}
 
-export const deleteOrder: RequestHandler = async (
+export async function deleteOrder(
   req: Request,
   res: Response,
-  next: NextFunction
-): Promise<any> => {
+  next: NextFunction,
+): Promise<Response | undefined> {
   try {
     const order = await deleteElement("orders", req.params.id);
     if (!order) {
       throw new AppError("Order error", 404, "Order not found", false);
     }
-    res.status(200).json({ message: `Order deleted successfully`, order });
+    return res
+      .status(200)
+      .json({ message: `Order deleted successfully`, order });
   } catch (error) {
     next(error);
   }
-};
+}

@@ -15,16 +15,16 @@ router.post(
   "/categories/create",
   loginVerifier,
   validateSchema,
-  createCategory,
+  createCategory as any,
 );
 router.put(
   "/categories/:id/update",
   loginVerifier,
   validateSchema,
-  updateCategory,
+  updateCategory as any,
 );
-router.delete("/categories/:id/delete", loginVerifier, deleteCategory);
-router.get("/categories", getAllCategories);
-router.get("/categories/:id", getCategoryById);
+router.delete("/categories/:id/delete", loginVerifier, deleteCategory as any);
+router.get("/categories", getAllCategories as any);
+router.get("/categories/:id", getCategoryById as any);
 
 export default router;

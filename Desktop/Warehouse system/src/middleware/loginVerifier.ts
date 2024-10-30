@@ -7,7 +7,7 @@ configDotenv();
 export const loginVerifier: RequestHandler = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Response<any, Record<string, any>> | any => {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) {
@@ -16,7 +16,7 @@ export const loginVerifier: RequestHandler = (
   try {
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET as string
+      process.env.JWT_SECRET as string,
     ) as JwtPayload;
 
     (req as Request & { user?: unknown }).user = {
