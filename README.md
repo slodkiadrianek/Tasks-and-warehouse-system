@@ -13,6 +13,7 @@ This api is used to manage tasks and warehouses.
 - JWT
 - Prisma
 - npm
+- Typescript
 
 [![My Skills](https://skillicons.dev/icons?i=nodejs,express,mongodb,prisma,javascript,typescript,vitest,npm,)](https://skillicons.dev)
 
