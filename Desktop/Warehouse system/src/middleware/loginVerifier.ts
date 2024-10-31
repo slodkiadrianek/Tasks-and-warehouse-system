@@ -3,7 +3,7 @@ import { RequestHandler, Request, Response, NextFunction } from "express";
 import { configDotenv } from "dotenv";
 configDotenv();
 
-// Weryfikacja czy użytkownik jest zalogowany
+// check if token is valid and assign user to request object
 export const loginVerifier: RequestHandler = (
   req: Request,
   res: Response,

@@ -31,6 +31,3 @@ app.use(categoriesRoutes);
 app.use(productRoutes);
 app.use(ordersRoutes);
 app.use(tasksRoutes);
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });

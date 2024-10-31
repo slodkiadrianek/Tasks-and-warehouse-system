@@ -1,6 +1,7 @@
 import { RequestHandler, NextFunction, Response, Request } from "express";
 
 import validationSchemas from "./validation-schemas.js";
+//schemaValidator middleware
 export const validateSchema: RequestHandler = (
   req: Request,
   res: Response,
@@ -9,8 +10,6 @@ export const validateSchema: RequestHandler = (
   if (req.body.email) {
     req.body.email = req.body.email.toLowerCase();
   }
-
-  // console.log(, req.originalUrl.split("/")[1])
 
   const result = validationSchemas[req.originalUrl.split("/")[1]].validate(
     req.body,

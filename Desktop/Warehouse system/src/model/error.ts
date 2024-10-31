@@ -1,3 +1,4 @@
+// Class for custom error handling
 export class AppError extends Error {
   public readonly name: string = "AppError";
   public readonly statusCode: number;

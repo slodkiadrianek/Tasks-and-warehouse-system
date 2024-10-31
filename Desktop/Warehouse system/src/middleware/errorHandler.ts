@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction, ErrorRequestHandler } from "express";
 import { AppError } from "../model/error.js";
+//custom error handler for handling AppError
 const errorHandler: ErrorRequestHandler = (
   err: Error,
   req: Request,

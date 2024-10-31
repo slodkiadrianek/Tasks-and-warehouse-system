@@ -88,7 +88,6 @@ export const deleteWarehouseLocation = async (
 ): Promise<Response | undefined> => {
   try {
     const { id } = req.params;
-    const result = await deleteElement("warehouseLocation", id);
     const products = await Prisma.products.findMany({
       where: { warehouseLocationId: id },
     });
@@ -100,6 +99,7 @@ export const deleteWarehouseLocation = async (
         false,
       );
     }
+    const result = await deleteElement("warehouseLocation", id);
     if (!result) {
       throw new AppError(
         "warehouseLocation",
@@ -110,7 +110,7 @@ export const deleteWarehouseLocation = async (
     }
     return res
       .status(200)
-      .json({ message: "Warehouse location deleted successfully" });
+      .json({ message: "Warehouse location deleted successfully", result });
   } catch (error) {
     next(error);
   }

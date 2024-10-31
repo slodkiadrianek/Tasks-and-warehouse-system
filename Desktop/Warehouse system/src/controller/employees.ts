@@ -112,7 +112,9 @@ export const deleteUser = async (
       throw new AppError("DeleteError", 400, "Invalid password", false);
     }
     const result = await deleteElement("employee", id);
-    return res.status(200).json({ message: "Employee deleted successfully" });
+    return res
+      .status(200)
+      .json({ message: "Employee deleted successfully", result });
   } catch (error) {
     next(error);
   }
