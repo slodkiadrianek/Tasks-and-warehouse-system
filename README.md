@@ -1,5 +1,5 @@
 # Tasks-and-warehouse-system
-This api is used to manage tasks and warehouses.
+This api is used to manage tasks and warehouse.
 - Employee management system
 - Task management system
 - Warehouse locations
