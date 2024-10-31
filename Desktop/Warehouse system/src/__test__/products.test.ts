@@ -2,13 +2,7 @@ import { app } from "../app.js";
 import request from "supertest";
 import prisma from "../utils/prisma.js";
 import { describe, it, expect, afterAll, beforeAll } from "vitest";
-import {
-  deleteUser,
-  generateUser,
-  warehouseLocationData,
-  productData,
-} from "../utils/testData.js";
-import { aw } from "vitest/dist/chunks/reporters.C4ZHgdxQ.js";
+import { deleteUser, generateUser, productData } from "../utils/testData.js";
 
 describe("Products", () => {
   let userToken: string;

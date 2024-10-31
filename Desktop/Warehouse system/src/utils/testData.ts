@@ -37,7 +37,7 @@ export const orderData = {
   customerEmail: "johndoe@6dxam22ple.com",
   customerPhone: "1234567890",
   quantity: [10],
-  productsId: ["67225cc4554299e9e27ca39c"],
+  productsId: ["6723adf02b1c003bdd06bbdb"],
 };
 
 export async function generateUser() {

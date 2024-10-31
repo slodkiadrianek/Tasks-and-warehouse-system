@@ -7,11 +7,11 @@ import {
   updateElement,
 } from "../model/operations.js";
 
-export const createWarehouseLocation: RequestHandler = async (
+export const createWarehouseLocation = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const result = await addElement("warehouseLocation", req.body);
     return res
@@ -22,11 +22,11 @@ export const createWarehouseLocation: RequestHandler = async (
   }
 };
 
-export const getAllWarehouseLocations: RequestHandler = async (
+export const getAllWarehouseLocations = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const result = await Prisma.warehouseLocation.findMany({
       include: {
@@ -38,11 +38,11 @@ export const getAllWarehouseLocations: RequestHandler = async (
     next(error);
   }
 };
-export const getWarehouseLocationById: RequestHandler = async (
+export const getWarehouseLocationById = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { id } = req.params;
     const result = await Prisma.warehouseLocation.findUnique({
@@ -62,11 +62,11 @@ export const getWarehouseLocationById: RequestHandler = async (
   }
 };
 
-export const updateWarehouseLocation: RequestHandler = async (
+export const updateWarehouseLocation = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { id } = req.params;
     const result = await updateElement("warehouseLocation", id, req.body);
@@ -81,11 +81,11 @@ export const updateWarehouseLocation: RequestHandler = async (
   }
 };
 
-export const deleteWarehouseLocation: RequestHandler = async (
+export const deleteWarehouseLocation = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { id } = req.params;
     const result = await deleteElement("warehouseLocation", id);

@@ -7,11 +7,11 @@ import {
   updateElement,
 } from "../model/operations.js";
 
-export const createProduct: RequestHandler = async (
+export const createProduct = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { price } = req.body;
     const convertedPrice = parseFloat(price);
@@ -28,11 +28,11 @@ export const createProduct: RequestHandler = async (
   }
 };
 
-export const getAllProducts: RequestHandler = async (
+export const getAllProducts = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const result = await Prisma.products.findMany({
       include: {
@@ -48,11 +48,11 @@ export const getAllProducts: RequestHandler = async (
     next(error);
   }
 };
-export const getProductById: RequestHandler = async (
+export const getProductById = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { id } = req.params;
     const result = await Prisma.products.findUnique({
@@ -73,11 +73,11 @@ export const getProductById: RequestHandler = async (
     next(error);
   }
 };
-export const updateProduct: RequestHandler = async (
+export const updateProduct = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { id } = req.params;
     const result = await updateElement("products", id, req.body);
@@ -91,11 +91,11 @@ export const updateProduct: RequestHandler = async (
     next(error);
   }
 };
-export const deleteProduct: RequestHandler = async (
+export const deleteProduct = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { id } = req.params;
     const result = await deleteElement("products", id);

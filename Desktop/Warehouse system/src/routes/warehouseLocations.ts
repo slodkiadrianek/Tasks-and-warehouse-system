@@ -14,21 +14,29 @@ router.post(
   "/warehouseLocation/create",
   loginVerifier,
   validateSchema,
-  createWarehouseLocation,
+  createWarehouseLocation as any,
 );
 
-router.get("/warehouseLocation/get", loginVerifier, getAllWarehouseLocations);
-router.get("/warehouseLocation/:id", loginVerifier, getWarehouseLocationById);
+router.get(
+  "/warehouseLocation/get",
+  loginVerifier,
+  getAllWarehouseLocations as any,
+);
+router.get(
+  "/warehouseLocation/:id",
+  loginVerifier,
+  getWarehouseLocationById as any,
+);
 router.put(
   "/warehouseLocation/:id/update",
   loginVerifier,
   validateSchema,
-  updateWarehouseLocation,
+  updateWarehouseLocation as any,
 );
 router.delete(
   "/warehouseLocation/:id/delete",
   loginVerifier,
-  deleteWarehouseLocation,
+  deleteWarehouseLocation as any,
 );
 
 export default router;

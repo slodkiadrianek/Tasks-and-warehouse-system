@@ -19,11 +19,11 @@ interface User {
 }
 
 //Function to create a new user
-export const createUser: RequestHandler = async (
+export const createUser = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { email, password } = req.body;
     const existingUser = await Prisma.employee.findUnique({
@@ -32,8 +32,8 @@ export const createUser: RequestHandler = async (
     if (existingUser) {
       throw new AppError("UserError", 400, "User already exists", false);
     }
-    const hashedPassword = await bcrypt.hash(password, 12);
-    const result = await addElement("employee", {
+    const hashedPassword: string = await bcrypt.hash(password, 12);
+    const result: object = await addElement("employee", {
       ...req.body,
       password: hashedPassword,
     });
@@ -45,11 +45,11 @@ export const createUser: RequestHandler = async (
   }
 };
 
-export const loginUser: RequestHandler = async (
+export const loginUser = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { email, password } = req.body;
     const user: User | null = await Prisma.employee.findUnique({
@@ -71,11 +71,11 @@ export const loginUser: RequestHandler = async (
   }
 };
 
-export const getUser: RequestHandler = async (
+export const getUser = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { id } = req.params;
     const user: User | null = await Prisma.employee.findUnique({
@@ -92,11 +92,11 @@ export const getUser: RequestHandler = async (
     next(error);
   }
 };
-export const deleteUser: RequestHandler = async (
+export const deleteUser = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const { password } = req.body;
     const { id } = req.params;

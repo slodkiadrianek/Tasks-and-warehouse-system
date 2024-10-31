@@ -6,11 +6,11 @@ import {
   updateElement,
 } from "../model/operations.js";
 
-export const createTask: RequestHandler = async (
+export const createTask = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const result = await addElement("tasks", {
       ...req.body,
@@ -24,11 +24,11 @@ export const createTask: RequestHandler = async (
   }
 };
 
-export const deleteTask: RequestHandler = async (
+export const deleteTask = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const id = req.params.id;
     const result = await deleteElement("tasks", id);
@@ -39,11 +39,11 @@ export const deleteTask: RequestHandler = async (
     next(error);
   }
 };
-export const updateTask: RequestHandler = async (
+export const updateTask = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const id = req.params.id;
     const result = await updateElement("tasks", id, req.body);
@@ -55,11 +55,11 @@ export const updateTask: RequestHandler = async (
   }
 };
 
-export const getTask: RequestHandler = async (
+export const getTask = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const id = req.params.id;
     const result = await prisma.tasks.findUnique({
@@ -72,11 +72,11 @@ export const getTask: RequestHandler = async (
     next(error);
   }
 };
-export const getAllTasks: RequestHandler = async (
+export const getAllTasks = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<any> => {
+): Promise<Response | undefined> => {
   try {
     const result = await prisma.tasks.findMany({});
     return res

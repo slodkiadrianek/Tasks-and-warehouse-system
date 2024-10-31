@@ -11,13 +11,18 @@ import { validateSchema } from "../middleware/schemaValidator.js";
 
 const router = express.Router();
 
-router.post("/tasks/create", loginVerifier, validateSchema, createTask);
+router.post("/tasks/create", loginVerifier, validateSchema, createTask as any);
 
-router.get("/tasks/:id", loginVerifier, getTask);
+router.get("/tasks/:id", loginVerifier, getTask as any);
 
-router.get("/tasks", loginVerifier, getAllTasks);
+router.get("/tasks", loginVerifier, getAllTasks as any);
 
-router.put("/tasks/:id/update", loginVerifier, validateSchema, updateTask);
-router.delete("/tasks/:id/delete", loginVerifier, deleteTask);
+router.put(
+  "/tasks/:id/update",
+  loginVerifier,
+  validateSchema,
+  updateTask as any,
+);
+router.delete("/tasks/:id/delete", loginVerifier, deleteTask as any);
 
 export default router;

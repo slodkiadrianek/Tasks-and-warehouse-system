@@ -10,12 +10,12 @@ import { validateSchema } from "../middleware/schemaValidator.js";
 
 const router = express.Router();
 
-router.post("/employees/create", validateSchema, createUser);
+router.post("/employees/create", validateSchema, createUser as any);
 
-router.post("/login", validateSchema, loginUser);
+router.post("/login", validateSchema, loginUser as any);
 
-router.get("/employees/:id", getUser);
+router.get("/employees/:id", getUser as any);
 
-router.delete("/employees/:id/delete", loginVerifier, deleteUser);
+router.delete("/employees/:id/delete", loginVerifier, deleteUser as any);
 
 export default router;
